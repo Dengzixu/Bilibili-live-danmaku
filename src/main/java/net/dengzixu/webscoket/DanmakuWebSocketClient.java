@@ -20,8 +20,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class DanmakuWebSocketClient {
     private static final Logger logger = LoggerFactory.getLogger(DanmakuWebSocketClient.class);
 
-    private final static Integer MAX_RECONNECT_TIME = 5;
-
     private final AtomicInteger reconnectTime = new AtomicInteger(0);
 
     private final long roomId;
@@ -30,16 +28,20 @@ public class DanmakuWebSocketClient {
     private final OkHttpClient okHttpClient;
     private final Request request;
 
-    private boolean reconnectFlag = false;
+    /**
+     * 重连相关设置
+     */
+    private final static Integer MAX_RECONNECT_TIME = 5;
+    private boolean allowReconnect;
 
     private Timer heartbeatTimer;
 
     private WebSocket webSocket;
 
-
-    public DanmakuWebSocketClient(long roomId, WebSocketListener webSocketListener) {
+    public DanmakuWebSocketClient(long roomId, WebSocketListener webSocketListener, boolean allowReconnect) {
         this.roomId = roomId;
         this.webSocketListener = webSocketListener;
+        this.allowReconnect = allowReconnect;
 
         okHttpClient = new OkHttpClient.Builder()
                 .build();
@@ -50,6 +52,10 @@ public class DanmakuWebSocketClient {
 
     }
 
+    public DanmakuWebSocketClient(long roomId, WebSocketListener webSocketListener) {
+        this(roomId, webSocketListener, true);
+    }
+
     public void connect() {
         if (null == webSocket) {
             webSocket = okHttpClient.newWebSocket(request, webSocketListener);
@@ -57,7 +63,7 @@ public class DanmakuWebSocketClient {
     }
 
     public void disconnect() {
-        this.reconnectFlag = false;
+        this.allowReconnect = false;
 
         webSocket.close(1000, "");
 
@@ -65,7 +71,7 @@ public class DanmakuWebSocketClient {
     }
 
     public void reconnect() {
-        if (!reconnectFlag) {
+        if (!allowReconnect) {
             return;
         }
 
@@ -113,6 +119,4 @@ public class DanmakuWebSocketClient {
     public WebSocket getWebSocket() {
         return Objects.requireNonNull(this.webSocket);
     }
-
-
 }

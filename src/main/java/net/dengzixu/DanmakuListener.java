@@ -12,6 +12,7 @@ import net.dengzixu.packet.PacketBuilder;
 import net.dengzixu.packet.PacketResolve;
 import net.dengzixu.payload.AuthPayload;
 import net.dengzixu.payload.PayloadResolver;
+import net.dengzixu.profile.ListenerProfile;
 import net.dengzixu.webscoket.DanmakuWebSocketClient;
 import okhttp3.Response;
 import okhttp3.WebSocket;
@@ -38,11 +39,14 @@ public class DanmakuListener {
 
     private final List<Listener> listenerList = new ArrayList<>();
     private final List<Filter> filterList = new ArrayList<>();
+    private ListenerProfile listenerProfile = new ListenerProfile();
 
     private DanmakuListener(long roomId) {
         this.roomId = roomId;
 
-        this.danmakuWebSocketClient = new DanmakuWebSocketClient(roomId, createWebSocketListener());
+        this.danmakuWebSocketClient = new DanmakuWebSocketClient(roomId,
+                createWebSocketListener(),
+                listenerProfile.isAllowAutoReconnect());
     }
 
     public static DanmakuListener getInstance(long roomId) {
@@ -57,6 +61,12 @@ public class DanmakuListener {
         }
 
         return danmakuListenerMap.get(roomId);
+    }
+
+    public DanmakuListener setProfile(ListenerProfile profile) {
+        this.listenerProfile = profile;
+
+        return this;
     }
 
     public DanmakuListener registerListener(Listener listener) {
