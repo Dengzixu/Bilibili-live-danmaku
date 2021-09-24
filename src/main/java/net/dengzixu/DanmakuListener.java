@@ -158,7 +158,7 @@ public class DanmakuListener {
 
                 AuthPayload authPayload = new AuthPayload();
                 authPayload.setRoomId(roomId);
-                authPayload.setKey(GetAuthToken.get(roomId));
+                authPayload.setKey(new GetAuthToken().get(roomId));
 
                 String payloadString;
 
