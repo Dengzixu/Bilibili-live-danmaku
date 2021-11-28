@@ -33,6 +33,9 @@ public class PacketResolve {
 
         // 需要判断一下数据包里是不是只有一条数据
         while (currentOffset < rawDataLength) {
+            if (rawDataLength - currentOffset < 16) {
+                break;
+            }
             Packet resolvedPacket = new Packet() {{
                 setPacketLength(byteBuffer.getInt(currentOffset));
                 setHeaderLength(byteBuffer.getShort(currentOffset + 4));
