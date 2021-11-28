@@ -35,6 +35,9 @@ public class SendGiftResolver extends BodyResolver {
         }
         final Map<?, ?> dataMap = (Map<?, ?>) payloadMap.get("data");
 
+        // 时间戳
+        message.setTimestamp((Long) dataMap.get("timestamp"));
+
         // 礼物信息
 //        message.setContent((HashMap<?, ?>) dataMap);
         message.setContent(new HashMap<>() {{

@@ -7,10 +7,12 @@ import java.util.HashMap;
 public class Message {
     public HashMap<?, ?> content;
 
-    public BodyCommandEnum bodyCommandEnum;
+    public BodyCommandEnum bodyCommand;
 
     public UserInfo userInfo;
     public FansMedal fansMedal;
+
+    public Long timestamp;
 
     public HashMap<?, ?> getContent() {
         return content;
@@ -21,11 +23,11 @@ public class Message {
     }
 
     public BodyCommandEnum getBodyCommand() {
-        return bodyCommandEnum;
+        return bodyCommand;
     }
 
-    public void setBodyCommand(BodyCommandEnum bodyCommandEnum) {
-        this.bodyCommandEnum = bodyCommandEnum;
+    public void setBodyCommand(BodyCommandEnum bodyCommand) {
+        this.bodyCommand = bodyCommand;
     }
 
     public UserInfo getUserInfo() {
@@ -44,13 +46,22 @@ public class Message {
         this.fansMedal = fansMedal;
     }
 
+    public Long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Long timestamp) {
+        this.timestamp = timestamp;
+    }
+
     @Override
     public String toString() {
         return "Message{" +
                 "content=" + content +
-                ", bodyCommand=" + bodyCommandEnum +
+                ", bodyCommand=" + bodyCommand +
                 ", userInfo=" + userInfo +
                 ", fansMedal=" + fansMedal +
+                ", timestamp=" + timestamp +
                 '}';
     }
 }

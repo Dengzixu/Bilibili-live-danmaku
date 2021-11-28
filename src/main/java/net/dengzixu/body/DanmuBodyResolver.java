@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class DanmuBodyResolver extends BodyResolver {
@@ -39,6 +40,13 @@ public class DanmuBodyResolver extends BodyResolver {
 
         final ArrayList<?> infoList = (ArrayList<?>) this.payloadMap.get("info");
 
+        // 时间戳
+        if (infoList.get(0) instanceof List<?>) {
+            List<?> baseInfoList = (List<?>) infoList.get(0);
+            message.setTimestamp((Long) baseInfoList.get(5));
+        }
+
+        // 弹幕内容
         message.setContent(new HashMap<>() {{
             put("danmu", infoList.get(1));
         }});

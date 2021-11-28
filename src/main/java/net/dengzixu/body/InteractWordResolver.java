@@ -35,6 +35,10 @@ public class InteractWordResolver extends BodyResolver {
         }
         final Map<?, ?> dataMap = (Map<?, ?>) payloadMap.get("data");
 
+        // 时间戳
+        message.setTimestamp((Long) dataMap.get("timestamp"));
+
+        // 消息类型
         message.setContent(new HashMap<>() {{
             put("msg_type", dataMap.get("msg_type"));
         }});
