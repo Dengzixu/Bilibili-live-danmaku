@@ -14,9 +14,13 @@ public class FaceUtil {
         if (null == faceUrl) {
             // 当缓存中不存在投降时，从服务器中获取
             new Thread(() -> {
-                String face = new AccountInfo().getFace(uid);
+               try {
+                   String face = new AccountInfo().getFace(uid);
 
-                FaceCache.getInstance().put(uid, face);
+                   FaceCache.getInstance().put(uid, face);
+               } catch (NullPointerException ignored){
+
+               }
             }).start();
 
             return null;
