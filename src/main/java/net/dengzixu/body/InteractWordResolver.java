@@ -36,7 +36,7 @@ public class InteractWordResolver extends BodyResolver {
         final Map<?, ?> dataMap = (Map<?, ?>) payloadMap.get("data");
 
         // 时间戳
-        message.setTimestamp((Long) dataMap.get("timestamp"));
+        message.setTimestamp(((Number) dataMap.get("timestamp")).longValue());
 
         // 消息类型
         message.setContent(new HashMap<>() {{

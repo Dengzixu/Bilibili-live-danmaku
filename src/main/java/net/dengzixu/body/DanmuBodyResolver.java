@@ -43,7 +43,7 @@ public class DanmuBodyResolver extends BodyResolver {
         // 时间戳
         if (infoList.get(0) instanceof List<?>) {
             List<?> baseInfoList = (List<?>) infoList.get(0);
-            message.setTimestamp((Long) baseInfoList.get(5));
+            message.setTimestamp(((Number) baseInfoList.get(5)).longValue());
         }
 
         // 弹幕内容
