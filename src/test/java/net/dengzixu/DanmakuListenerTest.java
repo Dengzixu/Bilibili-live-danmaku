@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 public class DanmakuListenerTest {
     private static final Logger logger = LoggerFactory.getLogger(DanmakuListener.class);
 
-    private static final int roomId = 3080147;
+    private static final int roomId = 6103516;
 
     public static void main(String[] args) {
         LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
@@ -19,6 +19,7 @@ public class DanmakuListenerTest {
         DanmakuListener.getInstance(roomId).connect().registerListener(message -> {
 //            logger.info("[直播间: {}] [消息] {}", roomId, message);
 
+            System.out.println(message.getTimestamp());
 
             switch (message.getBodyCommand()) {
                 case DANMU_MSG:
@@ -54,7 +55,6 @@ public class DanmakuListenerTest {
                 case SEND_GIFT:
                     logger.debug("[GIFT DEBUG] Combo ID: {}", message.getContent().get("batch_combo_id"));
                     if (message.getContent().get("is_first").equals(true)) {
-//                    if (true) {
                         if (null != message.getFansMedal() && message.getFansMedal().isLighted()) {
                             logger.info("[直播间: {}] [礼物消息] [{}] [{}-{}] 赠送: {} x {} 个", roomId,
                                     message.getUserInfo().getUsername(),
