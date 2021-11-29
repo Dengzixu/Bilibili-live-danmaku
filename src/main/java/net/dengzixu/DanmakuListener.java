@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.*;
 
 public class DanmakuListener {
     private final Logger logger = LoggerFactory.getLogger(DanmakuListener.class);
@@ -40,6 +40,8 @@ public class DanmakuListener {
     private final List<Listener> listenerList = new ArrayList<>();
     private final List<Filter> filterList = new ArrayList<>();
     private ListenerProfile listenerProfile = new ListenerProfile();
+
+    private static final ExecutorService executor = Executors.newCachedThreadPool();
 
     private DanmakuListener(long roomId) {
         this.roomId = roomId;
@@ -142,7 +144,24 @@ public class DanmakuListener {
                         case INTERACT_WORD:
                         case SEND_GIFT:
                         case COMBO_SEND:
-                            listenerList.forEach(listener -> listener.onMessage(message));
+//                            listenerList.forEach(listener -> new Thread(() -> {
+//                                try {
+//                                    listener.onMessage(message);
+//                                } catch (Exception e) {
+//                                    logger.error("Listener throw exception", e);
+//                                }
+//                            }));
+
+                            listenerList.forEach(listener -> {
+                                executor.execute(() -> {
+                                    try {
+                                        listener.onMessage(message);
+                                    } catch (Exception e) {
+                                        logger.error("Listener throw exception", e);
+                                    }
+                                });
+                            });
+
                             break;
                         case AUTH_SUCCESS:
                             // 认证成功后 开始发送心跳

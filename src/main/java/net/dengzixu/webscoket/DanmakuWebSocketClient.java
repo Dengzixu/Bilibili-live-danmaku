@@ -32,6 +32,8 @@ public class DanmakuWebSocketClient {
      * 重连相关设置
      */
     private final static Integer MAX_RECONNECT_TIME = 5;
+    private final static Integer RECONNECT_INTERVAL_SECOND = 30;
+    private static Long lastReconnectTime;
     private boolean allowReconnect;
 
     private Timer heartbeatTimer;
@@ -74,6 +76,12 @@ public class DanmakuWebSocketClient {
         if (!allowReconnect) {
             return;
         }
+
+        if (System.currentTimeMillis() - lastReconnectTime > (RECONNECT_INTERVAL_SECOND * 1000)) {
+            reconnectTime.set(0);
+        }
+
+        lastReconnectTime = System.currentTimeMillis();
 
         // 如果大于最大重试次数 放弃重连
         if (reconnectTime.incrementAndGet() > MAX_RECONNECT_TIME) {
