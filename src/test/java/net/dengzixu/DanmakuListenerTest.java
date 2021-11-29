@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 public class DanmakuListenerTest {
     private static final Logger logger = LoggerFactory.getLogger(DanmakuListener.class);
 
-    private static final int roomId = 6103516;
+    private static final int roomId = 280446;
 
     public static void main(String[] args) {
         LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
@@ -18,8 +18,6 @@ public class DanmakuListenerTest {
 
         DanmakuListener.getInstance(roomId).connect().registerListener(message -> {
 //            logger.info("[直播间: {}] [消息] {}", roomId, message);
-
-            System.out.println(message.getTimestamp());
 
             switch (message.getBodyCommand()) {
                 case DANMU_MSG:
