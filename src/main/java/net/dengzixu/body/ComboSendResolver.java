@@ -6,6 +6,7 @@ import net.dengzixu.exception.UnknownDataFormatException;
 import net.dengzixu.message.FansMedal;
 import net.dengzixu.message.Message;
 import net.dengzixu.message.UserInfo;
+import net.dengzixu.profile.DanmakuProfile;
 import net.dengzixu.utils.FaceUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,7 +53,9 @@ public class ComboSendResolver extends BodyResolver {
             setUid((int) dataMap.get("uid"));
             setUsername((String) dataMap.get("uname"));
             // body 中不包含 face 需要手动获取
-            setFace(FaceUtil.getFace((int) dataMap.get("uid")));
+            if (DanmakuProfile.getInstance().getAutoPullFace()){
+                setFace(FaceUtil.getFace((int) dataMap.get("uid")));
+            }
         }});
 
         // 粉丝牌信息
