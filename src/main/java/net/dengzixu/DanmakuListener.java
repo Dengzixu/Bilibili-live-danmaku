@@ -151,16 +151,13 @@ public class DanmakuListener {
 //                                    logger.error("Listener throw exception", e);
 //                                }
 //                            }));
-
-                            listenerList.forEach(listener -> {
-                                executor.execute(() -> {
-                                    try {
-                                        listener.onMessage(message);
-                                    } catch (Exception e) {
-                                        logger.error("Listener throw exception", e);
-                                    }
-                                });
-                            });
+                            listenerList.forEach(listener -> executor.execute(() -> {
+                                try {
+                                    listener.onMessage(message);
+                                } catch (Exception e) {
+                                    logger.error("Listener throw exception", e);
+                                }
+                            }));
 
                             break;
                         case AUTH_SUCCESS:

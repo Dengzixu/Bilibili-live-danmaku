@@ -12,7 +12,7 @@ public class FaceUtil {
         String faceUrl = faceCache.get(uid);
 
         if (null == faceUrl) {
-            // 当缓存中不存在投降时，从服务器中获取
+            // 当缓存中不存在头像时，从服务器中获取
             new Thread(() -> {
                try {
                    String face = new AccountInfo().getFace(uid);
