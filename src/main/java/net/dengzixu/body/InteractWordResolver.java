@@ -1,5 +1,6 @@
 package net.dengzixu.body;
 
+import net.dengzixu.annotation.BodyResolver;
 import net.dengzixu.constant.BodyCommandEnum;
 import net.dengzixu.exception.ErrorCmdException;
 import net.dengzixu.exception.UnknownDataFormatException;
@@ -12,7 +13,8 @@ import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InteractWordResolver extends BodyResolver {
+@BodyResolver(bodyCommand = BodyCommandEnum.INTERACT_WORD)
+public class InteractWordResolver extends AbstractBodyResolver {
     private static final BodyCommandEnum BODY_COMMAND = BodyCommandEnum.INTERACT_WORD;
 
     private static final Logger logger = LoggerFactory.getLogger(InteractWordResolver.class);

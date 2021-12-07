@@ -6,11 +6,11 @@ import net.dengzixu.message.Message;
 import java.util.Map;
 import java.util.Objects;
 
-public abstract class BodyResolver {
+public abstract class AbstractBodyResolver {
     protected Map<String, Object> payloadMap;
     protected String payloadCmd;
 
-    public BodyResolver(Map<String, Object> payloadMap) {
+    public AbstractBodyResolver(Map<String, Object> payloadMap) {
         Objects.requireNonNull(payloadMap);
 
         this.payloadMap = payloadMap;

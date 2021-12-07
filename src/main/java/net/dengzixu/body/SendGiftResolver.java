@@ -1,5 +1,6 @@
 package net.dengzixu.body;
 
+import net.dengzixu.annotation.BodyResolver;
 import net.dengzixu.constant.BodyCommandEnum;
 import net.dengzixu.exception.ErrorCmdException;
 import net.dengzixu.exception.UnknownDataFormatException;
@@ -12,7 +13,8 @@ import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SendGiftResolver extends BodyResolver {
+@BodyResolver(bodyCommand = BodyCommandEnum.SEND_GIFT)
+public class SendGiftResolver extends AbstractBodyResolver {
     private static final BodyCommandEnum BODY_COMMAND = BodyCommandEnum.SEND_GIFT;
 
     private static final Logger logger = LoggerFactory.getLogger(SendGiftResolver.class);

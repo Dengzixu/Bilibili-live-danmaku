@@ -1,5 +1,6 @@
 package net.dengzixu.body;
 
+import net.dengzixu.annotation.BodyResolver;
 import net.dengzixu.constant.BodyCommandEnum;
 import net.dengzixu.exception.ErrorCmdException;
 import net.dengzixu.exception.UnknownDataFormatException;
@@ -16,7 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DanmuBodyResolver extends BodyResolver {
+@BodyResolver(bodyCommand = BodyCommandEnum.DANMU_MSG)
+public class DanmuBodyResolver extends AbstractBodyResolver {
     private static final BodyCommandEnum BODY_COMMAND = BodyCommandEnum.DANMU_MSG;
 
     private static final Logger logger = LoggerFactory.getLogger(DanmuBodyResolver.class);

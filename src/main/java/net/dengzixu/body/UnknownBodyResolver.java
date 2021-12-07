@@ -1,5 +1,6 @@
 package net.dengzixu.body;
 
+import net.dengzixu.annotation.BodyResolver;
 import net.dengzixu.constant.BodyCommandEnum;
 import net.dengzixu.message.Message;
 import org.slf4j.Logger;
@@ -8,7 +9,8 @@ import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UnknownBodyResolver extends BodyResolver {
+@BodyResolver(bodyCommand = BodyCommandEnum.UNKNOWN)
+public class UnknownBodyResolver extends AbstractBodyResolver {
     private static final Logger logger = LoggerFactory.getLogger(UnknownBodyResolver.class);
 
 

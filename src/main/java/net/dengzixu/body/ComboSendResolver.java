@@ -1,5 +1,6 @@
 package net.dengzixu.body;
 
+import net.dengzixu.annotation.BodyResolver;
 import net.dengzixu.constant.BodyCommandEnum;
 import net.dengzixu.exception.ErrorCmdException;
 import net.dengzixu.exception.UnknownDataFormatException;
@@ -14,7 +15,8 @@ import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ComboSendResolver extends BodyResolver {
+@BodyResolver(bodyCommand = BodyCommandEnum.COMBO_SEND)
+public class ComboSendResolver extends AbstractBodyResolver {
     private static final BodyCommandEnum BODY_COMMAND = BodyCommandEnum.COMBO_SEND;
 
     private static final Logger logger = LoggerFactory.getLogger(ComboSendResolver.class);
@@ -53,7 +55,7 @@ public class ComboSendResolver extends BodyResolver {
             setUid((int) dataMap.get("uid"));
             setUsername((String) dataMap.get("uname"));
             // body 中不包含 face 需要手动获取
-            if (DanmakuProfile.getInstance().getAutoPullFace()){
+            if (DanmakuProfile.getInstance().getAutoPullFace()) {
                 setFace(FaceUtil.getFace((int) dataMap.get("uid")));
             }
         }});
