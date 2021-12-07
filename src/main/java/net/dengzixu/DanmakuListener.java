@@ -144,13 +144,6 @@ public class DanmakuListener {
                         case INTERACT_WORD:
                         case SEND_GIFT:
                         case COMBO_SEND:
-//                            listenerList.forEach(listener -> new Thread(() -> {
-//                                try {
-//                                    listener.onMessage(message);
-//                                } catch (Exception e) {
-//                                    logger.error("Listener throw exception", e);
-//                                }
-//                            }));
                             listenerList.forEach(listener -> executor.execute(() -> {
                                 try {
                                     listener.onMessage(message);
