@@ -3,23 +3,25 @@ package net.dengzixu;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.LoggerContext;
+import net.dengzixu.profile.DanmakuProfile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class DanmakuListenerTest {
     private static final Logger logger = LoggerFactory.getLogger(DanmakuListener.class);
 
-    private static final int roomId = 280446;
+    private static final int roomId = 545068;
 
     public static void main(String[] args) {
         LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
         ch.qos.logback.classic.Logger logger1 = loggerContext.getLogger("root");
         logger1.setLevel(Level.INFO);
 
+        DanmakuProfile.getInstance().setAutoPullFace(false);
         DanmakuListener.getInstance(roomId).connect().registerListener(message -> {
 //            logger.info("[直播间: {}] [消息] {}", roomId, message);
 
-            switch (message.getBodyCommand()) {
+            switch (message.getMessageType()) {
                 case DANMU_MSG:
                     if (null != message.getFansMedal() && message.getFansMedal().isLighted()) {
                         logger.info("[直播间: {}] [弹幕消息] [{}] [{}-{}] {}", roomId,
