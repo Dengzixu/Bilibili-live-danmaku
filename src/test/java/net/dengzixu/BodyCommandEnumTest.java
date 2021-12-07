@@ -14,7 +14,7 @@ public class BodyCommandEnumTest {
 
     @Test
     public void BodyCommandTest2() {
-        var result = BodyCommandEnum.getEnum("FUCK");
+        var result = BodyCommandEnum.getEnum("FOO_BAR");
         Assert.assertEquals(BodyCommandEnum.UNKNOWN, result);
     }
 }
