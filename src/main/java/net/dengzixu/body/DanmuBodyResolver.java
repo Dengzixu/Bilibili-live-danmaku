@@ -2,6 +2,7 @@ package net.dengzixu.body;
 
 import net.dengzixu.annotation.BodyResolver;
 import net.dengzixu.constant.BodyCommandEnum;
+import net.dengzixu.constant.MessageTypeEnum;
 import net.dengzixu.exception.ErrorCmdException;
 import net.dengzixu.exception.UnknownDataFormatException;
 import net.dengzixu.message.FansMedal;
@@ -34,7 +35,8 @@ public class DanmuBodyResolver extends AbstractBodyResolver {
     @Override
     public Message resolve() {
         Message message = new Message();
-        message.setBodyCommand(BODY_COMMAND);
+//        message.setBodyCommand(BODY_COMMAND);
+        message.setMessageType(MessageTypeEnum.getEnum(BODY_COMMAND.command()));
 
         // ["info"] 弹幕内容
         if (!(this.payloadMap.get("info") instanceof ArrayList<?>)) {

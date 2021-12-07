@@ -11,7 +11,9 @@ public enum BodyCommandEnum {
 
     STOP_LIVE_ROOM_LIST("STOP_LIVE_ROOM_LIST"),
 
+    @Deprecated
     AUTH_SUCCESS("AUTH_SUCCESS"),
+    @Deprecated
     POPULARITY("POPULARITY"),
 
     UNKNOWN("UNKNOWN");

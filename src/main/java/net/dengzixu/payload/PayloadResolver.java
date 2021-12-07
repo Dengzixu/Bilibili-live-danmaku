@@ -4,8 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.dengzixu.annotation.BodyResolverAnnotationProcessor;
-import net.dengzixu.body.*;
 import net.dengzixu.constant.BodyCommandEnum;
+import net.dengzixu.constant.MessageTypeEnum;
 import net.dengzixu.constant.PacketOperationEnum;
 import net.dengzixu.message.Message;
 import org.jetbrains.annotations.NotNull;
@@ -18,7 +18,6 @@ import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class PayloadResolver {
     private final Logger logger = LoggerFactory.getLogger(PayloadResolver.class);
@@ -41,7 +40,9 @@ public class PayloadResolver {
         switch (operation) {
             case OPERATION_3 -> {
                 ByteBuffer byteBuffer = ByteBuffer.allocate(payload.length).put(payload);
-                message.setBodyCommand(BodyCommandEnum.POPULARITY);
+//                message.setBodyCommand(BodyCommandEnum.POPULARITY);
+                message.setMessageType(MessageTypeEnum.POPULARITY);
+
                 message.setContent(new HashMap<>() {{
                     put("popularity", byteBuffer.order(ByteOrder.BIG_ENDIAN).getInt(0));
                 }});
@@ -91,7 +92,9 @@ public class PayloadResolver {
                 try {
                     if ((int) payloadMap.get("code") == 0) {
                         message = new Message() {{
-                            setBodyCommand(BodyCommandEnum.AUTH_SUCCESS);
+//                            setBodyCommand(BodyCommandEnum.AUTH_SUCCESS);
+                            setMessageType(MessageTypeEnum.AUTH_SUCCESS);
+
                         }};
                     }
                 } catch (Exception ignored) {
@@ -99,7 +102,8 @@ public class PayloadResolver {
             }
             default -> {
                 message = new Message() {{
-                    setBodyCommand(BodyCommandEnum.UNKNOWN);
+//                    setBodyCommand(BodyCommandEnum.UNKNOWN);
+                    setMessageType(MessageTypeEnum.UNKNOWN);
                 }};
             }
         }

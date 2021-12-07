@@ -26,7 +26,9 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class DanmakuListener {
     private final Logger logger = LoggerFactory.getLogger(DanmakuListener.class);
@@ -139,7 +141,7 @@ public class DanmakuListener {
                     Message message = new PayloadResolver(item.getPayload(),
                             PacketOperationEnum.getEnum(item.getOperation())).resolve();
 
-                    switch (message.getBodyCommand()) {
+                    switch (message.getMessageType()) {
                         case DANMU_MSG:
                         case INTERACT_WORD:
                         case SEND_GIFT:

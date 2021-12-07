@@ -68,7 +68,7 @@ public class PacketResolverTest {
             Message message = new PayloadResolver(packet.getPayload(),
                     PacketOperationEnum.getEnum(packet.getOperation())).resolve();
 
-            switch (message.getBodyCommand()) {
+            switch (message.getMessageType()) {
                 case DANMU_MSG:
                 case INTERACT_WORD:
                 case SEND_GIFT:
